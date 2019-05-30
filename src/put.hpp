@@ -149,8 +149,10 @@ void print_help() {
     ;
 }
 
-// hex-only to decimal
+// hex to decimal
 byte htod(char c) {
+  if (isdigit(c))
+    return c - '0';
   switch (tolower(c)) {
     case 'a':
       return 10;
@@ -246,15 +248,24 @@ void print_escape() {
           if (delay)
             wait(delay, delay_unit);
           break;
-        // case 'x', 'u', 'U'
+        case 'x':
+          if (isxdigit(msg[i+2]) && isxdigit(msg[i+3])) {
+            *out
+              << (char)(
+                htod(msg[i+2]) * 16
+                + htod(msg[i+3])
+              );
+            i += 2;
+          }
+          break;
         // foreground
         case 'c':
         // background
         case 'C':
           if (isxdigit(msg[i+2]) && isxdigit(msg[i+3])) {
             color
-              = ((isdigit(msg[i+2]) ? msg[i+2] - '0' : htod(msg[i+2])) * 16)
-              + ((isdigit(msg[i+3]) ? msg[i+3] - '0' : htod(msg[i+3])));
+              = htod(msg[i+2]) * 16
+              + htod(msg[i+3]);
             *out
               << (msg[i+1] == 'c' ? "\e[38;5;" : "\e[48;5;")
               + std::to_string(color)
