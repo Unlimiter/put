@@ -63,7 +63,7 @@ to standard output and exit.
 .El
 .Ss Delayed Printing
 The
-.Fl e
+.Fl d
 and
 .Fl t
 options delay the output of text to standard output.
@@ -138,6 +138,9 @@ Print a single quote character.
 Print a double quote character.
 .It Cm \e\e
 Print a backslash character.
+.It Cm \e0 Ns Ar num
+Print the character with octal value
+.Ar num .
 .El
 .Pp
 .Nm
@@ -159,18 +162,7 @@ Format text according to attribute
 .Pp
 The color argument
 .Ar num
-is a 3-bit binary number.
-The supported colors are as follows:
-.Bl -column -offset indent 000 magenta
-.It Cm 000 Ta black
-.It Cm 001 Ta blue
-.It Cm 010 Ta green
-.It Cm 011 Ta cyan
-.It Cm 100 Ta red
-.It Cm 101 Ta magenta
-.It Cm 110 Ta yellow
-.It Cm 111 Ta white
-.El
+is a hexadecimal number ranging from 0x00 to 0xff.
 .Pp
 The formatting attribute argument
 .Ar attr
@@ -197,7 +189,7 @@ Print the string
 .Dq Colors! ,
 formatted to be in multiple colors and be blinking:
 .Pp
-.Dl $ put -e '\ed3\ec110C\ec101o\ec100l\ec011o\ec010r\ec001s\ec111!'
+.Dl $ put -e '\eccaC\ec4ao\ec5dl\ec29o\ecc8r\ec79s\ec8e!'
 .Sh SEE ALSO
 .Xr echo 1 ,
 .Xr printf 1 ,
@@ -206,4 +198,4 @@ formatted to be in multiple colors and be blinking:
 The
 .Nm
 utility was written by
-.An Unlimiter Aq Mt hichamlabidi50@gmail.com .
+.An Unlimiter Aq Mt unlimiter@zoho.com .
