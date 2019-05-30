@@ -34,9 +34,9 @@ usage: put [OPTION] [ARG...]
     h    hours               3600s
     min  minutes               60s
     s    seconds                1s
-    ms   milliseconds        1000s
-    us   microseconds     1000000s
-    ns   nanoseconds   1000000000s
+    ms   milliseconds        1e-3s
+    us   microseconds        1e-6s
+    ns   nanoseconds         1e-9s
 
   Colors:
     000  black
