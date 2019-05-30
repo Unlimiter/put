@@ -1,4 +1,4 @@
-# Put (alpha)
+# Put
 
 Put is a tool written in C++ for writing text to the standard output. It has more features than `echo`, but it is not necessarily faster.
 
