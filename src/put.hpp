@@ -1,6 +1,7 @@
 #include <getopt.h>
 #include <cstdlib>
 #include <cstring>
+#include <cctype>
 #include <iostream>
 #include <thread>
 #include <chrono>
@@ -97,7 +98,7 @@ void print(std::string msg) {
       std::cerr.flush();
       wait(timeout, timeout_unit);
     }
-    std::cerr << "\033[0m";
+    std::cerr << "\e[0m";
   }
   else {
     if (delay) {
@@ -113,7 +114,7 @@ void print(std::string msg) {
       std::cout.flush();
       wait(timeout, timeout_unit);
     }
-    std::cout << "\033[0m";
+    std::cout << "\e[0m";
   }
 	if (newline)
     std::cout << '\n';
@@ -150,33 +151,26 @@ void print_help() {
     "    \\\\           backslash              5C\n"
     "    \\'           single quotation mark  27\n"
     "    \\\"           double quotation mark  22\n"
-  /*"    \\NNN         the character with octal value NNN\n"
-    "    \\xNN         the character with hexadecimal value NN\n"
-    "    \\uNNNN       the character with hexadecimal value NNNN\n"*/
-    "    \\cNNN        start printing with foreground color NNN, where it is a binary number\n"
-    "    \\CNNN        start printing with background color NNN, where it is a binary number\n"
-    "    \\dN          start printing with text attribute N, where it can be 0-5\n"
+    "    \\0NNN        the character with octal value NNN\n"
+  /*"    \\xHH         the character with hexadecimal value HH\n"
+    "    \\uHHHH       the character with hexadecimal value HHHH\n"*/
+    "    \\cHH         start using foreground color with hexadecimal value HH\n"
+    "    \\CHH         start using background color with hexadecimal value HH\n"
+    "    \\dN          start using text attribute N (0-5)\n"
     "\n"
     "  Supported Time Units:\n"
-    "    y    years           31536000s\n"
-    "    m    months           2628000s\n"
+    "    y    years (365d)    31536000s\n"
+    "    m    months (30d)     2628000s\n"
     "    d    days               86400s\n"
     "    h    hours               3600s\n"
     "    min  minutes               60s\n"
     "    s    seconds                1s\n"
-    "    ms   milliseconds        1e-3s\n"
-    "    us   microseconds        1e-6s\n"
-    "    ns   nanoseconds         1e-9s\n"
+    "    ms   milliseconds        1000s\n"
+    "    us   microseconds        1e+6s\n"
+    "    ns   nanoseconds         1e+9s\n"
     "\n"
-    "  Colors:\n"
-    "    000  black\n"
-    "    001  blue\n"
-    "    010  green\n"
-    "    011  cyan\n"
-    "    100  red\n"
-    "    101  magenta\n"
-    "    110  yellow\n"
-    "    111  white\n"
+    "  Colors (on 256-color terminals only):\n"
+    "    Ranging from 0 (0x00) to 255 (0xff).\n"
     "\n"
     "  Attributes:\n"
     "    0  no attribute\n"
@@ -192,20 +186,35 @@ void print_units() {
   std::cout << "time units: y m d h s ms us ns\n";
 }
 
-bool isbdigit(char c) {
-  if (c == '0' || c == '1')
-    return true;
-  return false;
-}
-
 bool isodigit(char c) {
   return c >= '0' && c <= '7';
+}
+
+// hex-only to decimal
+byte htod(char c) {
+  switch (tolower(c)) {
+    case 'a':
+      return 10;
+    case 'b':
+      return 11;
+    case 'c':
+      return 12;
+    case 'd':
+      return 13;
+    case 'e':
+      return 14;
+    case 'f':
+      return 15;
+    default:
+      return 0;
+  }
 }
 
 void handle_escape() {
   auto msg_length = msg.length();
   char c[2];
   c[1] = 0;
+  unsigned color = 0;
   for (unsigned i = 0; i < msg_length; i++) {
     if (msg[i] == '\\') {
       switch (msg[i+1]) {
@@ -249,20 +258,18 @@ void handle_escape() {
             if (isodigit(msg[i+3])) {
               // \0NN?
               if (isodigit(msg[i+4])) {
-                c[0] = (
-                  (msg[i+2] - '0') * 64
+                c[0]
+                  = (msg[i+2] - '0') * 64
                   + (msg[i+3] - '0') * 8
-                  + (msg[i+4] - '0')
-                );
+                  + (msg[i+4] - '0');
                 msg.replace(i, 5, c);
                 i += 3;
               }
               // \0NN
               else {
-                c[0] = (
-                  (msg[i+2] - '0') * 8
-                  + (msg[i+3] - '0')
-                );
+                c[0]
+                  = (msg[i+2] - '0') * 8
+                  + (msg[i+3] - '0');
                 msg.replace(i, 4, c);
                 i += 2;
               }
@@ -277,109 +284,44 @@ void handle_escape() {
           break;
         // foreground
         case 'c':
-          if (msg_length > i + 4 && isbdigit(msg[i+2]) && isbdigit(msg[i+3]) && isbdigit(msg[i+4])) {
-            if (msg[i+2] == '0') {
-              if (msg[i+3] == '0') {
-                if (msg[i+4] == '0')
-                  // 000 (black)
-                  msg.replace(i, 5, "\033[30m");
-                else
-                  // 001 (blue)
-                  msg.replace(i, 5, "\033[34m");
-              }
-              else {
-                if (msg[i+4] == '0')
-                  // 010 (green)
-                  msg.replace(i, 5, "\033[32m");
-                else
-                  // 011 (cyan)
-                  msg.replace(i, 5, "\033[36m");
-              }
-            }
-            else {
-              if (msg[i+3] == '0') {
-                if (msg[i+4] == '0')
-                  // 100 (red)
-                  msg.replace(i, 5, "\033[31m");
-                else
-                  // 101 (magenta)
-                  msg.replace(i, 5, "\033[35m");
-              }
-              else {
-                if (msg[i+4] == '0')
-                  // 110 (yellow)
-                  msg.replace(i, 5, "\033[33m");
-                else
-                  // 111 (white)
-                  msg.replace(i, 5, "\033[37m");
-              }
-            }
-            i += 2;
-          }
-          break;
         // background
         case 'C':
-          if (msg_length > i + 4 && isbdigit(msg[i+2]) && isbdigit(msg[i+3]) && isbdigit(msg[i+4])) {
-            if (msg[i+2] == '0') {
-              if (msg[i+3] == '0') {
-                if (msg[i+4] == '0')
-                  // 000 (black)
-                  msg.replace(i, 5, "\033[40m");
-                else
-                  // 001 (blue)
-                  msg.replace(i, 5, "\033[44m");
-              }
-              else {
-                if (msg[i+4] == '0')
-                  // 010 (green)
-                  msg.replace(i, 5, "\033[42m");
-                else
-                  // 011 (cyan)
-                  msg.replace(i, 5, "\033[46m");
-              }
-            }
-            else {
-              if (msg[i+3] == '0') {
-                if (msg[i+4] == '0')
-                  // 100 (red)
-                  msg.replace(i, 5, "\033[41m");
-                else
-                  // 101 (magenta)
-                  msg.replace(i, 5, "\033[45m");
-              }
-              else {
-                if (msg[i+4] == '0')
-                  // 110 (yellow)
-                  msg.replace(i, 5, "\033[43m");
-                else
-                  // 111 (white)
-                  msg.replace(i, 5, "\033[47m");
-              }
-            }
+          if (isxdigit(msg[i+2]) && isxdigit(msg[i+3])) {
+            color
+              = ((isdigit(msg[i+2]) ? msg[i+2] - '0' : htod(msg[i+2])) * 16)
+              + ((isdigit(msg[i+3]) ? msg[i+3] - '0' : htod(msg[i+3])));
+            msg.replace(
+              i,
+              4,
+              (msg[i+1] == 'c' ? "\e[38;5;" : "\e[48;5;")
+              + std::to_string(color)
+              + "m"
+            );
             i += 2;
           }
+          color = 0;
           break;
         // attribute/decoration
         case 'd':
           if (msg[i+2] >= '0' && msg[i+2] <= '5') {
             switch (msg[i+2]) {
               case '0':
-                msg.replace(i, 3, "\033[0m");
+                msg.replace(i, 3, "\e[0m");
                 break;
               case '1':
-                msg.replace(i, 3, "\033[1m");
+                msg.replace(i, 3, "\e[1m");
                 break;
               case '2':
-                msg.replace(i, 3, "\033[4m");
+                msg.replace(i, 3, "\e[4m");
                 break;
               case '3':
-                msg.replace(i, 3, "\033[5m");
+                msg.replace(i, 3, "\e[5m");
                 break;
               case '4':
-                msg.replace(i, 3, "\033[7m");
+                msg.replace(i, 3, "\e[7m");
                 break;
               case '5':
-                msg.replace(i, 3, "\033[8m");
+                msg.replace(i, 3, "\e[8m");
                 break;
             }
             i++;
