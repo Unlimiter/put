@@ -119,8 +119,7 @@ void print_help() {
     "    \\\\           backslash              5C\n"
     "    \\'           single quotation mark  27\n"
     "    \\\"           double quotation mark  22\n"
-  /*"    \\xHH         the character with hexadecimal value HH\n"
-    "    \\uHHHH       the character with hexadecimal value HHHH\n"*/
+    "    \\xHH         the ASCII character with hexadecimal value HH\n"
     "    \\cHH         start using foreground color with hexadecimal value HH\n"
     "    \\CHH         start using background color with hexadecimal value HH\n"
     "    \\dN          start using text attribute N (0-5)\n"
