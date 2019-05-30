@@ -1,3 +1,6 @@
+v2.0.4-a.0
+  - added "\xHH" escape sequence support
+
 v2.0.3-a.4
   - updated README.md
 
@@ -13,7 +16,7 @@ v2.0.3-a.1
 v2.0.3-a.0
   - updated usage text
 
-v2.0.2-a
+v2.0.2-a.0
   - removed "\0NNN" escape sequence
   - fixed bug where output is delayed when '-e' is set
 
@@ -27,23 +30,23 @@ v2.0.1-a.0
   - optimized Makefile
   - added manpage
 
-v2.0.0-a
+v2.0.0-a.0
   - added "\0NNN" escape sequence
   - added 256 color support
 
-v1.0.4-a
+v1.0.4-a.0
   - fixed escape sequences support
 
-v1.0.3-a
+v1.0.3-a.0
   - updated usage text
 
-v1.0.2-a
+v1.0.2-a.0
   - added CHANGES.txt (this file)
 
-v1.0.1-a
+v1.0.1-a.0
   - added minor speed improvements
 
-v1.0.0-a
+v1.0.0-a.0
   - added usage/help text
   - added version text
   - added error messages
