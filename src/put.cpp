@@ -109,7 +109,7 @@ int main(int argc, char** argv) {
           unit = "ms";
         if (std::find(std::begin(unit_strings), std::end(unit_strings), unit) == std::end(unit_strings)) {
           std::cerr << "put: invalid time unit: " << unit << '\n';
-          std::cout << "time units: y m d h s ms us ns\n";
+          print_units();
           exit(1);
         }
         timeout = strtold(s.c_str(), 0);
