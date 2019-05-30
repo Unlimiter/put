@@ -1,0 +1,57 @@
+usage: put [OPTION] [ARG...]
+  Print ARGs to the standard output.
+
+  Options:
+    -h, --help             Print usage and exit
+    -v, --version          Print version and exit
+    -n, --line             Do not print newline at the end
+    -e, --escape           Interpret escape sequences
+    -E, --error            Print to the standard error output
+
+    -d, --delay DELAY      Set DELAY as the delay between each character output
+    -t, --timeout TIMEOUT  Set TIMEOUT as the timeout before exiting
+
+  Escape sequences:
+    \a           alert/bell/beep        07
+    \b           backspace              08
+    \e           escape character       1B
+    \f           formfeed               0C
+    \n           newline                0A
+    \r           carriage return        0D
+    \t           horizontal tab         09
+    \v           vertical tab           0B
+    \\           backslash              5C
+    \'           single quotation mark  27
+    \"           double quotation mark  22
+    \cNNN        start printing with foreground color NNN, where it is a binary number
+    \CNNN        start printing with background color NNN, where it is a binary number
+    \dN          start printing with text attribute N, where it can be 0-5
+
+  Supported Time Units:
+    y    years           31536000s
+    m    months           2628000s
+    d    days               86400s
+    h    hours               3600s
+    min  minutes               60s
+    s    seconds                1s
+    ms   milliseconds        1000s
+    us   microseconds     1000000s
+    ns   nanoseconds   1000000000s
+
+  Colors:
+    000  black
+    001  blue
+    010  green
+    011  cyan
+    100  red
+    101  magenta
+    110  yellow
+    111  white
+
+  Attributes:
+    0  no attribute
+    1  bold
+    2  underlined (on monochrome display adapters only)
+    3  blinking
+    4  inverted
+    5  concealed
