@@ -1,0 +1,15 @@
+v1.0.0-alpha.2
+  - added minor speed improvements
+
+v1.0.0-alpha.1 (Initial version)
+  - added usage/help text
+  - added version text
+  - added error messages
+  - added ability to write to standard output
+  - added ability to write to standard error output
+  - added ability to prevent the trailing newline
+  - added ability to delay character outputs
+  - added ability to set a timeout for the program before exiting
+  - added escape sequences support
+  - added text colors support
+  - added text attributes support
