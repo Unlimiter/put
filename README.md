@@ -12,6 +12,8 @@ git clone https://github.com/Unlimiter/put
 
 To compile Put, type the command `make` while on the repository directory. This will generate the `put` binary.
 
+And to open the manpage for Put, first you need to `sudo make install`, then you can `man put` to open the manpage.
+
 ## Usage
 
 `put [-hvneE|-d=DELAY|-t=TIMEOUT] [ARG...]`
@@ -19,7 +21,7 @@ To compile Put, type the command `make` while on the repository directory. This 
 For a complete usage reference, see the file `USAGE.txt`.
 
 ## Getting help
-If you experience any problem with `put`, please open an issue.
+If you experience any problem with this repository, please open an issue.
 
 If the problem is related to git, please check [here](https://git-scm.com/community).
 
