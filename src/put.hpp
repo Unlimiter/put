@@ -115,7 +115,6 @@ void print_help() {
     "    \\\\           backslash              5C\n"
     "    \\'           single quotation mark  27\n"
     "    \\\"           double quotation mark  22\n"
-    "    \\0NNN        the character with octal value NNN\n"
   /*"    \\xHH         the character with hexadecimal value HH\n"
     "    \\uHHHH       the character with hexadecimal value HHHH\n"*/
     "    \\cHH         start using foreground color with hexadecimal value HH\n"
