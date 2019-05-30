@@ -1,0 +1,209 @@
+.Dd May 31, 2019
+.Dt PUT 1
+.Os
+.Sh NAME
+.Nm put
+.Nd write arguments to standard output
+.Sh SYNOPSIS
+.Nm
+.Op Fl Eehnv
+.Op Fl d Ar time
+.Op Fl t Ar time
+.Op Ar argument ...
+.Sh DESCRIPTION
+The
+.Nm
+utility writes all given arguments to standard output.
+Each argument is separated by a single space
+.Pq Sq \ \& ,
+and a trailing newline character
+.Pq Sq \en
+is added.
+.Pp
+When no arguments are given,
+nothing will be written.
+The
+.Cm --
+operand,
+which denotes the end of option processing,
+is
+.Sy not
+included in the output.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl d Ar time , Fl -delay Ar time
+Delay the printing of each character by
+.Ar time
+units.
+See
+.Sx Delayed Printing
+below.
+.It Fl E , -error
+Write arguments to standard error.
+.It Fl e , -escape
+Interpret and expand escape sequences in the arguments on output.
+See
+.Sx Escape Sequences
+below.
+.It Fl h , -help
+Print help text to standard output and exit.
+.It Fl n , -line
+Do not print the trailing newline character.
+.It Fl t Ar time , Fl -timeout Ar time
+Delay the exiting of
+.Nm
+by
+.Ar time
+units.
+.It Fl v , -version
+Print the version number and copyright info of
+.Nm
+to standard output and exit.
+.El
+.Ss Delayed Printing
+The
+.Fl e
+and
+.Fl t
+options delay the output of text to standard output.
+The
+.Ar time
+argument is in the form
+.Sq Ar NUM Ns Ar unit ,
+where
+.Ar NUM
+is the amount of time
+.Ar unit Ns s
+to delay by.
+The supported units are as follows:
+.Bl -column -offset indent "num" "milliseconds"
+.It Cm y   Ta years
+.It Cm m   Ta months
+.It Cm d   Ta days
+.It Cm h   Ta hours
+.It Cm min Ta minutes
+.It Cm s   Ta seconds
+.It Cm ms  Ta milliseconds
+.It Cm us  Ta microseconds
+.It Cm ns  Ta nanoseconds
+.El
+.Ss Escape Sequences
+If the
+.Fl e
+option is given,
+.Nm
+expands specific character escape sequences on output.
+These characters,
+given in backslash notation as defined in
+.St -ansiC ,
+are as follows:
+.Pp
+.Bl -tag -width Ds -offset indent -compact
+.It Cm \ea
+Print a
+.Aq bell
+character.
+.It Cm \eb
+Print a
+.Aq backspace
+character.
+.It Cm \ee
+Print an
+.Aq escape
+character.
+.It Cm \ef
+Print a
+.Aq form-feed
+character.
+.It Cm \en
+Print a
+.Aq new-line
+character.
+.It Cm \er
+Print a
+.An carriage return
+character.
+.It Cm \et
+Print a
+.An tab
+character.
+.It Cm \ev
+Print a
+.An vertical tab
+character.
+.It Cm \e'
+Print a single quote character.
+.It Cm \e"
+Print a double quote character.
+.It Cm \e\e
+Print a backslash character.
+.El
+.Pp
+.Nm
+also adds custom escape sequences that control the color and format of
+the arguments.
+They are as follows:
+.Pp
+.Bl -tag -width Ds -offset indent -compact
+.It Cm \ec Ns Ar num
+Set the terminal forground to
+.Ar num .
+.It Cm \eC Ns Ar num
+Set the terminal background to
+.Ar num .
+.It Cm \ed Ns Ar attr
+Format text according to attribute
+.Ar attr .
+.El
+.Pp
+The color argument
+.Ar num
+is a 3-bit binary number.
+The supported colors are as follows:
+.Bl -column -offset indent 000 magenta
+.It Cm 000 Ta black
+.It Cm 001 Ta blue
+.It Cm 010 Ta green
+.It Cm 011 Ta cyan
+.It Cm 100 Ta red
+.It Cm 101 Ta magenta
+.It Cm 110 Ta yellow
+.It Cm 111 Ta white
+.El
+.Pp
+The formatting attribute argument
+.Ar attr
+is a single digit number.
+The supported attributes are as follows:
+.Bl -column -offset indent 0 "long desc"
+.It Cm 0 Ta no attribute
+.It Cm 1 Ta bold text
+.It Cm 2 Ta underlined text
+.It Cm 3 Ta blinking text
+.It Cm 4 Ta inverted text colors
+.It Cm 5 Ta concealed text
+.El
+.Sh EXIT STATUS
+.Ex -std
+.Sh EXAMPLES
+Print the string
+.Dq Hello, World! ,
+delaying printing each character by 400 milliseconds:
+.Pp
+.Dl $ put -d 400ms 'Hello, World!'
+.Pp
+Print the string
+.Dq Colors! ,
+formatted to be in multiple colors and be blinking:
+.Pp
+.Dl $ put -e '\ed3\ec110C\ec101o\ec100l\ec011o\ec010r\ec001s\ec111!'
+.Sh SEE ALSO
+.Xr echo 1 ,
+.Xr printf 1 ,
+.Xr tput 1
+.Sh AUTHORS
+The
+.Nm
+utility was written by
+.An Unlimiter Aq Mt hichamlabidi50@gmail.com .
