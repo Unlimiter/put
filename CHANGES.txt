@@ -1,3 +1,9 @@
+v2.0.3-a.4
+  - updated README.md
+
+v2.0.3-a.3
+  - corrected CHANGES.txt
+
 v2.0.3-a.2
   - corrected contents of some files
 
