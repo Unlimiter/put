@@ -1,10 +1,10 @@
-v2.0.5-a
+v2.0.3-a.2
   - corrected contents of some files
 
-v2.0.4-a
+v2.0.3-a.1
   - corrected email address of author in 'put.1'
 
-v2.0.3-a
+v2.0.3-a.0
   - updated usage text
 
 v2.0.2-a
@@ -17,7 +17,7 @@ v2.0.1-a.2
 v2.0.1-a.1
   - fixed Makefile
 
-v2.0.1-a
+v2.0.1-a.0
   - optimized Makefile
   - added manpage
 
