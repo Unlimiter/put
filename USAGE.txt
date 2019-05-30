@@ -28,8 +28,8 @@ usage: put [OPTION] [ARG...]
     \dN          start using text attribute N (0-5)
 
   Supported Time Units:
-    y    years (365d)    31536000s
-    m    months (30d)     2628000s
+    y    years (common)  31536000s
+    m    months (common)  2628000s
     d    days               86400s
     h    hours               3600s
     min  minutes               60s
@@ -41,7 +41,7 @@ usage: put [OPTION] [ARG...]
   Colors (on 256-color terminals only):
     Ranging from 0 (0x00) to 255 (0xff).
 
-  Attributes:
+  Text Attributes:
     0  no attribute
     1  bold
     2  underlined (on monochrome display adapters only)
