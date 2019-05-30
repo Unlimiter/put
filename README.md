@@ -10,7 +10,7 @@ Install the Put repository using `git clone`.
 git clone https://github.com/Unlimiter/put
 ```
 
-To compile Put, type the command `make` while on the repository directory. This will output the `put` binary.
+To compile Put, type the command `make` while on the repository directory. This will generate the `put` binary.
 
 ## Usage
 
