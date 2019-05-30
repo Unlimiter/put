@@ -345,7 +345,7 @@ void handle_escape() {
                 msg.replace(i, 3, "\033[0m");
                 break;
               case '1':
-                msg.replace(i, 3, "\033[01");
+                msg.replace(i, 3, "\033[1m");
                 break;
               case '2':
                 msg.replace(i, 3, "\033[4m");
