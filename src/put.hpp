@@ -25,6 +25,7 @@ namespace units {
   };
 }
 
+std::ostream* out = &std::cout;
 std::string msg;
 struct option longopts[] = {
   {"help", no_argument, 0, 'h'},
@@ -81,43 +82,6 @@ void wait(ldouble value, byte unit) {
       std::this_thread::sleep_for(std::chrono::duration<ldouble, std::ratio<1, 1000000000>>(value));
       break;
   }
-}
-
-void print(std::string msg) {
-  if (error) {
-    if (delay) {
-      for (auto c : msg) {
-        std::cerr << c;
-        std::cerr.flush();
-        wait(delay, delay_unit);
-      }
-    }
-    else
-      std::cerr << msg;
-    if (timeout) {
-      std::cerr.flush();
-      wait(timeout, timeout_unit);
-    }
-    std::cerr << "\e[0m";
-  }
-  else {
-    if (delay) {
-      for (auto c : msg) {
-        std::cout << c;
-        std::cout.flush();
-        wait(delay, delay_unit);
-      }
-    }
-    else
-      std::cout << msg;
-    if (timeout) {
-      std::cout.flush();
-      wait(timeout, timeout_unit);
-    }
-    std::cout << "\e[0m";
-  }
-	if (newline)
-    std::cout << '\n';
 }
 
 void print_usage() {
@@ -210,78 +174,84 @@ byte htod(char c) {
   }
 }
 
-void handle_escape() {
-  auto msg_length = msg.length();
-  char c[2];
-  c[1] = 0;
+void print() {
+  if (delay) {
+    for (auto c : msg) {
+      *out << c;
+      out->flush();
+      wait(delay, delay_unit);
+    }
+  }
+  else
+    *out << msg;
+  if (timeout) {
+    out->flush();
+    wait(timeout, timeout_unit);
+  }
+  std::cerr << "\e[0m";
+	if (newline)
+    *out << '\n';
+}
+
+void print_escape() {
   unsigned color = 0;
-  for (unsigned i = 0; i < msg_length; i++) {
+  for (unsigned i = 0; msg[i] != 0; i++) {
     if (msg[i] == '\\') {
       switch (msg[i+1]) {
         case 'a':
-          msg.replace(i, 2, "\a");
+          *out << '\a';
+          if (delay)
+            wait(delay, delay_unit);
           break;
         case 'b':
-          msg.replace(i, 2, "\b");
+          *out << '\b';
+          if (delay)
+            wait(delay, delay_unit);
           break;
         case 'e':
-          msg.replace(i, 2, "\e");
+          *out << '\e';
           break;
         case 'f':
-          msg.replace(i, 2, "\f");
+          *out << '\f';
+          if (delay)
+            wait(delay, delay_unit);
           break;
         case 'n':
-          msg.replace(i, 2, "\n");
+          *out << '\n';
+          if (delay)
+            wait(delay, delay_unit);
           break;
         case 'r':
-          msg.replace(i, 2, "\r");
+          *out << '\r';
+          if (delay)
+            wait(delay, delay_unit);
           break;
         case 't':
-          msg.replace(i, 2, "\t");
+          *out << '\t';
+          if (delay)
+            wait(delay, delay_unit);
           break;
         case 'v':
-          msg.replace(i, 2, "\v");
+          *out << '\v';
+          if (delay)
+            wait(delay, delay_unit);
           break;
         case '\\':
-          msg.replace(i, 2, "\\");
+          *out << '\\';
+          if (delay)
+            wait(delay, delay_unit);
           break;
         case '\'':
-          msg.replace(i, 2, "'");
+          *out << '\'';
+          if (delay)
+            wait(delay, delay_unit);
           break;
         case '"':
-          msg.replace(i, 2, "\"");
+          *out << '"';
+          if (delay)
+            wait(delay, delay_unit);
           break;
-        case '0':
-          // \0?
-          if (isodigit(msg[i+2])) {
-            // \0N?
-            if (isodigit(msg[i+3])) {
-              // \0NN?
-              if (isodigit(msg[i+4])) {
-                c[0]
-                  = (msg[i+2] - '0') * 64
-                  + (msg[i+3] - '0') * 8
-                  + (msg[i+4] - '0');
-                msg.replace(i, 5, c);
-                i += 3;
-              }
-              // \0NN
-              else {
-                c[0]
-                  = (msg[i+2] - '0') * 8
-                  + (msg[i+3] - '0');
-                msg.replace(i, 4, c);
-                i += 2;
-              }
-            }
-            // \0N
-            else {
-              c[0] = (msg[i+2] - '0');
-              msg.replace(i, 3, c);
-              i++;
-            }
-          }
-          break;
+        // case 'x', 'u', 'U'
         // foreground
         case 'c':
         // background
@@ -290,38 +260,35 @@ void handle_escape() {
             color
               = ((isdigit(msg[i+2]) ? msg[i+2] - '0' : htod(msg[i+2])) * 16)
               + ((isdigit(msg[i+3]) ? msg[i+3] - '0' : htod(msg[i+3])));
-            msg.replace(
-              i,
-              4,
-              (msg[i+1] == 'c' ? "\e[38;5;" : "\e[48;5;")
+            *out
+              << (msg[i+1] == 'c' ? "\e[38;5;" : "\e[48;5;")
               + std::to_string(color)
-              + "m"
-            );
+              + "m";
             i += 2;
+            color = 0;
           }
-          color = 0;
           break;
         // attribute/decoration
         case 'd':
           if (msg[i+2] >= '0' && msg[i+2] <= '5') {
             switch (msg[i+2]) {
               case '0':
-                msg.replace(i, 3, "\e[0m");
+                *out << "\e[0m";
                 break;
               case '1':
-                msg.replace(i, 3, "\e[1m");
+                *out << "\e[1m";
                 break;
               case '2':
-                msg.replace(i, 3, "\e[4m");
+                *out << "\e[4m";
                 break;
               case '3':
-                msg.replace(i, 3, "\e[5m");
+                *out << "\e[5m";
                 break;
               case '4':
-                msg.replace(i, 3, "\e[7m");
+                *out << "\e[7m";
                 break;
               case '5':
-                msg.replace(i, 3, "\e[8m");
+                *out << "\e[8m";
                 break;
             }
             i++;
@@ -330,5 +297,18 @@ void handle_escape() {
       }
       i++;
     }
+    else {
+      *out << msg[i];
+      out->flush();
+      if (delay)
+        wait(delay, delay_unit);
+    }
   }
+  if (timeout) {
+    out->flush();
+    wait(timeout, timeout_unit);
+  }
+  *out << "\e[0m";
+  if (newline)
+    *out << '\n';
 }
