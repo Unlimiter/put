@@ -1,7 +1,16 @@
-v1.0.0-alpha.2
+v1.0.0-a.5
+  - fixed escape sequences support
+
+v1.0.0-a.4
+  - updated usage text
+
+v1.0.0-a.3
+  - added CHANGES.txt (this file)
+
+v1.0.0-a.2
   - added minor speed improvements
 
-v1.0.0-alpha.1 (Initial version)
+v1.0.0-a.1
   - added usage/help text
   - added version text
   - added error messages
