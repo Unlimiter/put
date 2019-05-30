@@ -1,3 +1,12 @@
+v2.0.5-a
+  - corrected contents of some files
+
+v2.0.4-a
+  - corrected email address of author in 'put.1'
+
+v2.0.3-a
+  - updated usage text
+
 v2.0.2-a
   - removed "\0NNN" escape sequence
   - fixed bug where output is delayed when '-e' is set
