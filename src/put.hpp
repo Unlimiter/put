@@ -203,55 +203,77 @@ bool isodigit(char c) {
 }
 
 void handle_escape() {
-  /*replace_all(msg, "\\a", "\a");
-  replace_all(msg, "\\b", "\b");
-  replace_all(msg, "\\e", "\e");
-  replace_all(msg, "\\f", "\f");
-  replace_all(msg, "\\n", "\n");
-  replace_all(msg, "\\r", "\r");
-  replace_all(msg, "\\t", "\t");
-  replace_all(msg, "\\v", "\v");
-  replace_all(msg, "\\\\", "\\");
-  replace_all(msg, "\\'", "\'");
-  replace_all(msg, "\\\"", "\"");*/
-  
-  // I will support \NNN, \xNN and \uNNNN escape sequences in the future
   auto msg_length = msg.length();
+  char c[2];
+  c[1] = 0;
   for (unsigned i = 0; i < msg_length; i++) {
     if (msg[i] == '\\') {
       switch (msg[i+1]) {
         case 'a':
-          msg.replace(i, 1, "\a");
+          msg.replace(i, 2, "\a");
           break;
         case 'b':
-          msg.replace(i, 1, "\b");
+          msg.replace(i, 2, "\b");
           break;
         case 'e':
-          msg.replace(i, 1, "\e");
+          msg.replace(i, 2, "\e");
           break;
         case 'f':
-          msg.replace(i, 1, "\f");
+          msg.replace(i, 2, "\f");
           break;
         case 'n':
-          msg.replace(i, 1, "\n");
+          msg.replace(i, 2, "\n");
           break;
         case 'r':
-          msg.replace(i, 1, "\r");
+          msg.replace(i, 2, "\r");
           break;
         case 't':
-          msg.replace(i, 1, "\t");
+          msg.replace(i, 2, "\t");
           break;
         case 'v':
-          msg.replace(i, 1, "\v");
+          msg.replace(i, 2, "\v");
           break;
         case '\\':
-          msg.replace(i, 1, "\\");
+          msg.replace(i, 2, "\\");
           break;
         case '\'':
-          msg.replace(i, 1, "'");
+          msg.replace(i, 2, "'");
           break;
         case '"':
-          msg.replace(i, 1, "\"");
+          msg.replace(i, 2, "\"");
+          break;
+        case '0':
+          // \0?
+          if (isodigit(msg[i+2])) {
+            // \0N?
+            if (isodigit(msg[i+3])) {
+              // \0NN?
+              if (isodigit(msg[i+4])) {
+                c[0] = (
+                  (msg[i+2] - '0') * 64
+                  + (msg[i+3] - '0') * 8
+                  + (msg[i+4] - '0')
+                );
+                msg.replace(i, 5, c);
+                i += 3;
+              }
+              // \0NN
+              else {
+                c[0] = (
+                  (msg[i+2] - '0') * 8
+                  + (msg[i+3] - '0')
+                );
+                msg.replace(i, 4, c);
+                i += 2;
+              }
+            }
+            // \0N
+            else {
+              c[0] = (msg[i+2] - '0');
+              msg.replace(i, 3, c);
+              i++;
+            }
+          }
           break;
         // foreground
         case 'c':
