@@ -121,9 +121,9 @@ void print_help() {
     "    \\CHH         start using background color with hexadecimal value HH\n"
     "    \\dN          start using text attribute N (0-5)\n"
     "\n"
-    "  Supported Time Units:\n"
-    "    y    years (365d)    31536000s\n"
-    "    m    months (30d)     2628000s\n"
+    "  Time Units:\n"
+    "    y    years (common)  31536000s\n"
+    "    m    months (common)  2628000s\n"
     "    d    days               86400s\n"
     "    h    hours               3600s\n"
     "    min  minutes               60s\n"
@@ -133,24 +133,16 @@ void print_help() {
     "    ns   nanoseconds         1e+9s\n"
     "\n"
     "  Colors (on 256-color terminals only):\n"
-    "    Ranging from 0 (0x00) to 255 (0xff).\n"
+    "    Ranging from 0x00 to 0xff.\n"
     "\n"
-    "  Attributes:\n"
+    "  Text Attributes:\n"
     "    0  no attribute\n"
     "    1  bold\n"
     "    2  underlined (on monochrome display adapters only)\n"
     "    3  blinking\n"
-    "    4  inverted\n"
+    "    4  color-inverted\n"
     "    5  concealed\n"
     ;
-}
-
-void print_units() {
-  std::cout << "time units: y m d h s ms us ns\n";
-}
-
-bool isodigit(char c) {
-  return c >= '0' && c <= '7';
 }
 
 // hex-only to decimal
