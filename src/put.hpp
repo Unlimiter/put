@@ -198,24 +198,12 @@ bool isbdigit(char c) {
   return false;
 }
 
-void replace_all(
-  std::string& s,
-  const std::string& from,
-  const std::string& to
-) {
-  size_t start = 0;
-  while((start = s.find(from, start)) != std::string::npos) {
-    s.replace(start, from.length(), to);
-    start += to.length();
-  }
-}
-
 bool isodigit(char c) {
   return c >= '0' && c <= '7';
 }
 
 void handle_escape() {
-  replace_all(msg, "\\a", "\a");
+  /*replace_all(msg, "\\a", "\a");
   replace_all(msg, "\\b", "\b");
   replace_all(msg, "\\e", "\e");
   replace_all(msg, "\\f", "\f");
@@ -225,40 +213,158 @@ void handle_escape() {
   replace_all(msg, "\\v", "\v");
   replace_all(msg, "\\\\", "\\");
   replace_all(msg, "\\'", "\'");
-  replace_all(msg, "\\\"", "\"");
+  replace_all(msg, "\\\"", "\"");*/
   
   // I will support \NNN, \xNN and \uNNNN escape sequences in the future
-  /*auto msg_length = msg.length();
+  auto msg_length = msg.length();
   for (unsigned i = 0; i < msg_length; i++) {
     if (msg[i] == '\\') {
-      // \NNN
-      // \xNN
-      // \uNNNN
+      switch (msg[i+1]) {
+        case 'a':
+          msg.replace(i, 1, "\a");
+          break;
+        case 'b':
+          msg.replace(i, 1, "\b");
+          break;
+        case 'e':
+          msg.replace(i, 1, "\e");
+          break;
+        case 'f':
+          msg.replace(i, 1, "\f");
+          break;
+        case 'n':
+          msg.replace(i, 1, "\n");
+          break;
+        case 'r':
+          msg.replace(i, 1, "\r");
+          break;
+        case 't':
+          msg.replace(i, 1, "\t");
+          break;
+        case 'v':
+          msg.replace(i, 1, "\v");
+          break;
+        case '\\':
+          msg.replace(i, 1, "\\");
+          break;
+        case '\'':
+          msg.replace(i, 1, "'");
+          break;
+        case '"':
+          msg.replace(i, 1, "\"");
+          break;
+        // foreground
+        case 'c':
+          if (msg_length > i + 4 && isbdigit(msg[i+2]) && isbdigit(msg[i+3]) && isbdigit(msg[i+4])) {
+            if (msg[i+2] == '0') {
+              if (msg[i+3] == '0') {
+                if (msg[i+4] == '0')
+                  // 000 (black)
+                  msg.replace(i, 5, "\033[30m");
+                else
+                  // 001 (blue)
+                  msg.replace(i, 5, "\033[34m");
+              }
+              else {
+                if (msg[i+4] == '0')
+                  // 010 (green)
+                  msg.replace(i, 5, "\033[32m");
+                else
+                  // 011 (cyan)
+                  msg.replace(i, 5, "\033[36m");
+              }
+            }
+            else {
+              if (msg[i+3] == '0') {
+                if (msg[i+4] == '0')
+                  // 100 (red)
+                  msg.replace(i, 5, "\033[31m");
+                else
+                  // 101 (magenta)
+                  msg.replace(i, 5, "\033[35m");
+              }
+              else {
+                if (msg[i+4] == '0')
+                  // 110 (yellow)
+                  msg.replace(i, 5, "\033[33m");
+                else
+                  // 111 (white)
+                  msg.replace(i, 5, "\033[37m");
+              }
+            }
+            i += 2;
+          }
+          break;
+        // background
+        case 'C':
+          if (msg_length > i + 4 && isbdigit(msg[i+2]) && isbdigit(msg[i+3]) && isbdigit(msg[i+4])) {
+            if (msg[i+2] == '0') {
+              if (msg[i+3] == '0') {
+                if (msg[i+4] == '0')
+                  // 000 (black)
+                  msg.replace(i, 5, "\033[40m");
+                else
+                  // 001 (blue)
+                  msg.replace(i, 5, "\033[44m");
+              }
+              else {
+                if (msg[i+4] == '0')
+                  // 010 (green)
+                  msg.replace(i, 5, "\033[42m");
+                else
+                  // 011 (cyan)
+                  msg.replace(i, 5, "\033[46m");
+              }
+            }
+            else {
+              if (msg[i+3] == '0') {
+                if (msg[i+4] == '0')
+                  // 100 (red)
+                  msg.replace(i, 5, "\033[41m");
+                else
+                  // 101 (magenta)
+                  msg.replace(i, 5, "\033[45m");
+              }
+              else {
+                if (msg[i+4] == '0')
+                  // 110 (yellow)
+                  msg.replace(i, 5, "\033[43m");
+                else
+                  // 111 (white)
+                  msg.replace(i, 5, "\033[47m");
+              }
+            }
+            i += 2;
+          }
+          break;
+        // attribute/decoration
+        case 'd':
+          if (msg[i+2] >= '0' && msg[i+2] <= '5') {
+            switch (msg[i+2]) {
+              case '0':
+                msg.replace(i, 3, "\033[0m");
+                break;
+              case '1':
+                msg.replace(i, 3, "\033[01");
+                break;
+              case '2':
+                msg.replace(i, 3, "\033[4m");
+                break;
+              case '3':
+                msg.replace(i, 3, "\033[5m");
+                break;
+              case '4':
+                msg.replace(i, 3, "\033[7m");
+                break;
+              case '5':
+                msg.replace(i, 3, "\033[8m");
+                break;
+            }
+            i++;
+          }
+          break;
+      }
+      i++;
     }
-  }*/
-  
-  replace_all(msg, "\\c000", "\033[30m");
-  replace_all(msg, "\\c001", "\033[34m");
-  replace_all(msg, "\\c010", "\033[32m");
-  replace_all(msg, "\\c011", "\033[36m");
-  replace_all(msg, "\\c100", "\033[31m");
-  replace_all(msg, "\\c101", "\033[35m");
-  replace_all(msg, "\\c110", "\033[33m");
-  replace_all(msg, "\\c111", "\033[37m");
-  
-  replace_all(msg, "\\C000", "\033[40m");
-  replace_all(msg, "\\C001", "\033[44m");
-  replace_all(msg, "\\C010", "\033[42m");
-  replace_all(msg, "\\C011", "\033[46m");
-  replace_all(msg, "\\C100", "\033[41m");
-  replace_all(msg, "\\C101", "\033[45m");
-  replace_all(msg, "\\C110", "\033[43m");
-  replace_all(msg, "\\C111", "\033[47m");
-  
-  replace_all(msg, "\\d0", "\033[0m");
-  replace_all(msg, "\\d1", "\033[1m");
-  replace_all(msg, "\\d2", "\033[4m");
-  replace_all(msg, "\\d3", "\033[5m");
-  replace_all(msg, "\\d4", "\033[7m");
-  replace_all(msg, "\\d5", "\033[8m");
+  }
 }
