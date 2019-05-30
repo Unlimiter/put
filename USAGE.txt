@@ -23,30 +23,24 @@ usage: put [OPTION] [ARG...]
     \\           backslash              5C
     \'           single quotation mark  27
     \"           double quotation mark  22
-    \cNNN        start printing with foreground color NNN, where it is a binary number
-    \CNNN        start printing with background color NNN, where it is a binary number
-    \dN          start printing with text attribute N, where it can be 0-5
+    \0NNN        the character with octal value NNN
+    \cHH         start using foreground color with hexadecimal value HH
+    \CHH         start using background color with hexadecimal value HH
+    \dN          start using text attribute N (0-5)
 
   Supported Time Units:
-    y    years           31536000s
-    m    months           2628000s
+    y    years (365d)    31536000s
+    m    months (30d)     2628000s
     d    days               86400s
     h    hours               3600s
     min  minutes               60s
     s    seconds                1s
-    ms   milliseconds        1e-3s
-    us   microseconds        1e-6s
-    ns   nanoseconds         1e-9s
+    ms   milliseconds        1000s
+    us   microseconds        1e+6s
+    ns   nanoseconds         1e+9s
 
-  Colors:
-    000  black
-    001  blue
-    010  green
-    011  cyan
-    100  red
-    101  magenta
-    110  yellow
-    111  white
+  Colors (on 256-color terminals only):
+    Ranging from 0 (0x00) to 255 (0xff).
 
   Attributes:
     0  no attribute
