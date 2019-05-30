@@ -145,6 +145,7 @@ int main(int argc, char** argv) {
         break;
       case 'E':
         error = true;
+        out = &std::cerr;
         break;
       case '?':
         if (optopt)
@@ -165,7 +166,7 @@ int main(int argc, char** argv) {
       msg += ' ';
   }
   if (escape)
-    handle_escape();
-  if (!msg.empty())
-    print(msg);
+    print_escape();
+  else
+    print();
 }
