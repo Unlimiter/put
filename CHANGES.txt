@@ -1,3 +1,7 @@
+v1.0.0-a.6
+  - added "\0NNN" escape sequence
+  - added 256 color support
+
 v1.0.0-a.5
   - fixed escape sequences support
 
