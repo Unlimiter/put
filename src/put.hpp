@@ -84,6 +84,10 @@ void wait(ldouble value, byte unit) {
   }
 }
 
+void print_units() {
+  std::cout << "time units: y m d h s ms us ns\n";
+}
+
 void print_usage() {
   std::cout << "usage: put [-hvneE|-d=DELAY|-t=TIMEOUT] [ARG...]\n";
 }
