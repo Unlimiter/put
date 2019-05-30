@@ -1,3 +1,6 @@
 [30-05-2019]
 * 'put' is written in C++, and that means it's slower than 'echo' up to some point; echo is written in C. Plus, you can give arguments to 'echo' without having to worry about argument limits, while 'put' is more limited on arguments number than 'echo'.
 * Although 'put' supports escape sequences, it doesn't support "\NNN", "\xNN", "\uNNNN" and "\UNNNNNNNN" yet. I'll work on supporting them before the first stable release; I had to go to sleep at the time of writing.
+
+[31-05-2019]
+* I will not support the "\0NNN" escape sequence in the future, because it's useless in my opinion.
