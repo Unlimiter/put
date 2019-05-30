@@ -188,7 +188,7 @@ void print() {
     out->flush();
     wait(timeout, timeout_unit);
   }
-  std::cerr << "\e[0m";
+  *out << "\e[0m";
 	if (newline)
     *out << '\n';
 }
