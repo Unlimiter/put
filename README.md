@@ -1,6 +1,6 @@
 # Put
 
-Put is a tool written in C++ for writing text to the standard output that has more features than `echo`.
+Put is a tool written in C++ for writing text to the standard output in a stylish way.
 
 ## Installation
 
