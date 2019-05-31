@@ -166,19 +166,46 @@ Format text according to attribute
 .Pp
 The color argument
 .Ar num
-is a hexadecimal number ranging from 0x00 to 0xff.
+is a hexadecimal number ranging from 00 to ff.
+These are equivalent to the 8-bit SGR colors defined in
+.%T ISO/IEC 6429 .
+They are separated into four groups:
+.Bl -tag -width Ds
+.It 00\(em07
+Normal intensity colors,
+Same as the SGR codes from 30-37 and 40-47.
+.It 08\(em0f
+Increased intensity colors,
+same as combining SGR codes 30-37/40-47 with code 1.
+.It 10\(eme7
+216 color lookup.
+Colors are defined using
+.EQ
+16 + 36 times r + 6 times g + b
+.EN
+with
+.EQ
+0 <= r, g, b <= 5.
+.EN
+.It e8\(emff
+24 grayscale color range, starts with black and steps up to white.
+.El
 .Pp
 The formatting attribute argument
 .Ar attr
-is a single digit number.
+is a single digit number,
+corresponing to a set of
+.%T ECMA-48
+SGR codes.
 The supported attributes are as follows:
-.Bl -column -offset indent 0 "long desc"
-.It Cm 0 Ta no attribute
-.It Cm 1 Ta bold text
-.It Cm 2 Ta underlined text
-.It Cm 3 Ta blinking text
-.It Cm 4 Ta inverted text colors
-.It Cm 5 Ta concealed text
+.Bl -column -offset indent "Attr" "ECMA-48 Code" "long desc"
+.It Sy Attr Ta Sy ECMA-48 Code Ta Sy Result
+.It Cm 0    Ta N/A             Ta Unsets the current attribute
+.It Cm 1    Ta 1               Ta Bold text/increased intensity colors
+.It Cm 2    Ta 4               Ta Underlined Text
+.It Cm 3    Ta 5               Ta Slowly blinking text
+.It Cm 4    Ta 7               Ta Inverted colors
+.It Cm 5    Ta 8               Ta Concealed text
 .El
 .Sh EXIT STATUS
 .Ex -std
@@ -198,8 +225,24 @@ formatted to be in multiple colors and be blinking:
 .Xr echo 1 ,
 .Xr printf 1 ,
 .Xr tput 1
+.Pp
+.Rs
+.%I Ecma
+.%D 1991
+.%R ECMA-48
+.%T Control Functions for Coded Character Sets
+.%P p. 61
+.Re
+.Rs
+.%I ISO/IEC
+.%D 1992
+.%R 6429:1992
+.%T Control Functions for Coded Character Sets
+.Re
 .Sh AUTHORS
 The
 .Nm
 utility was written by
 .An Unlimiter Aq Mt hichamlabidi50@gmail.com .
+This reference was written by
+.An Stephen Gregoratto Aq Mt dev@sgregoratto.me .
