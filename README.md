@@ -16,9 +16,9 @@ And to open the manpage for Put, first you need to `sudo make install`, then you
 
 ## Usage
 
-`put [-hvneE|-d=DELAY|-t=TIMEOUT] [ARG...]`
+`put [-Eehnv] [-d <time>] [-t <time>] [<argument>...]`
 
-For a complete usage reference, see the file `USAGE.txt`.
+For a complete usage reference, see the file `USAGE.txt` or run `put -h`.
 
 ## Getting help
 If you experience any problem with this repository, please open an issue.
