@@ -89,12 +89,12 @@ void print_units() {
 }
 
 void print_usage() {
-  std::cout << "usage: put [-hvneE|-d=DELAY|-t=TIMEOUT] [ARG...]\n";
+  std::cout << "usage: put [-Eehnv] [-d <time>] [-t <time>] [<argument>...]\n";
 }
 
 void print_help() {
   std::cout <<
-    "usage: put [OPTION] [ARG...]\n"
+    "usage: put [<option>...] [<argument>...]\n"
     "  Print ARGs to the standard output.\n"
     "\n"
     "  Options:\n"
