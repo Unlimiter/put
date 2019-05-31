@@ -1,4 +1,4 @@
-usage: put [OPTION] [ARG...]
+usage: put [<option>...] [<argument>...]
   Print ARGs to the standard output.
 
   Options:
@@ -12,23 +12,26 @@ usage: put [OPTION] [ARG...]
     -t, --timeout TIMEOUT  Set TIMEOUT as the timeout before exiting
 
   Escape sequences:
-    \a           alert/bell/beep        07
-    \b           backspace              08
-    \e           escape character       1B
-    \f           formfeed               0C
-    \n           newline                0A
-    \r           carriage return        0D
-    \t           horizontal tab         09
-    \v           vertical tab           0B
-    \\           backslash              5C
-    \'           single quotation mark  27
-    \"           double quotation mark  22
-    \xHH         the ASCII character with hexadecimal value HH
-    \cHH         start using foreground color with hexadecimal value HH
-    \CHH         start using background color with hexadecimal value HH
-    \dN          start using text attribute N (0-5)
+    \a          alert/bell/beep        07
+    \b          backspace              08
+    \e          escape character       1B
+    \f          formfeed               0C
+    \n          newline                0A
+    \r          carriage return        0D
+    \t          horizontal tab         09
+    \v          vertical tab           0B
+    \\          backslash              5C
+    \'          single quotation mark  27
+    \"          double quotation mark  22
 
-  Supported Time Units:
+    \xHH        the character with hexadecimal value HH
+    \uHHHH      the character with hexadecimal value HHHH
+    \UHHHHHHHH  the character with hexadecimal value HHHHHHHH
+    \cHH        start using foreground color with hexadecimal value HH
+    \CHH        start using background color with hexadecimal value HH
+    \dN         start using text attribute N (0-5)
+
+  Time Units:
     y    years (common)  31536000s
     m    months (common)  2628000s
     d    days               86400s
@@ -40,12 +43,12 @@ usage: put [OPTION] [ARG...]
     ns   nanoseconds         1e+9s
 
   Colors (on 256-color terminals only):
-    Ranging from 0 (0x00) to 255 (0xff).
+    Ranging from 0x00 to 0xff.
 
   Text Attributes:
     0  no attribute
     1  bold
     2  underlined (on monochrome display adapters only)
     3  blinking
-    4  inverted
+    4  color-inverted
     5  concealed
