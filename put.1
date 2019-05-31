@@ -142,9 +142,17 @@ Print a double quote character.
 .It Cm \e\e
 Print a backslash character.
 .It Cm \ex Ns Ar num
-Print the ASCII character with hexadecimal value
-.Ar num ,
-which ranges from 0x00 to 0xff.
+Print the character with hexadecimal value
+.Ar num
+ranging from 00 to ff.
+.It Cm \eu Ns Ar num
+Print the character with hexadecimal value
+.Ar num
+ranging from 00 to ffff.
+.It Cm \eU Ns Ar num
+Print the character with hexadecimal value
+.Ar num
+ranging from 00 to ffffffff.
 .El
 .Pp
 .Nm
