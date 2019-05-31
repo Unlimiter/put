@@ -1,3 +1,6 @@
+v2.0.5-a.4
+  - updated "README.md"
+
 v2.0.5-a.3
   - updated "put.1"
 
@@ -15,10 +18,10 @@ v2.0.4-a.0
 
 [deleted versions: because they were misarranged in the releases page at GitHub]
 v2.0.3-a.4
-  - updated README.md
+  - updated "README.md"
 
 v2.0.3-a.3
-  - corrected CHANGES.txt
+  - corrected "CHANGES.txt"
 
 v2.0.3-a.2
   - corrected contents of some files
@@ -34,13 +37,13 @@ v2.0.2-a.0
   - fixed bug where output is delayed when '-e' is set
 
 v2.0.1-a.2
-  - updated README.md
+  - updated "README.md"
 
 v2.0.1-a.1
-  - fixed Makefile
+  - fixed "Makefile"
 
 v2.0.1-a.0
-  - optimized Makefile
+  - optimized "Makefile"
   - added manpage
 
 v2.0.0-a.0
@@ -54,7 +57,7 @@ v1.0.3-a.0
   - updated usage text
 
 v1.0.2-a.0
-  - added CHANGES.txt (this file)
+  - added "CHANGES.txt"
 
 v1.0.1-a.0
   - added minor speed improvements
