@@ -3,7 +3,7 @@ name: Bug report
 about: Create a report about unexpected behavior
 title: A brief description about the bug
 labels: bug
-assignees: Unlimiter
+assignees: ''
 
 ---
 
