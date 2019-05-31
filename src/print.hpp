@@ -29,56 +29,37 @@ void print_escape() {
       switch (msg[i+1]) {
         case 'a':
           *out << '\a';
-          if (delay)
-            wait(delay, delay_unit);
           break;
         case 'b':
           *out << '\b';
-          if (delay)
-            wait(delay, delay_unit);
           break;
         case 'e':
           *out << '\e';
+          goto _skip_delay;
           break;
         case 'f':
           *out << '\f';
-          if (delay)
-            wait(delay, delay_unit);
           break;
         case 'n':
           *out << '\n';
-          if (delay)
-            wait(delay, delay_unit);
           break;
         case 'r':
           *out << '\r';
-          if (delay)
-            wait(delay, delay_unit);
           break;
         case 't':
           *out << '\t';
-          if (delay)
-            wait(delay, delay_unit);
           break;
         case 'v':
           *out << '\v';
-          if (delay)
-            wait(delay, delay_unit);
           break;
         case '\\':
           *out << '\\';
-          if (delay)
-            wait(delay, delay_unit);
           break;
         case '\'':
           *out << '\'';
-          if (delay)
-            wait(delay, delay_unit);
           break;
         case '"':
           *out << '"';
-          if (delay)
-            wait(delay, delay_unit);
           break;
         case 'x':
           if (isxdigit(msg[i+2]) && isxdigit(msg[i+3])) {
@@ -90,7 +71,7 @@ void print_escape() {
             i += 2;
           }
           else
-            goto default_;
+            goto _default;
           break;
         case 'u':
           if (
@@ -110,7 +91,7 @@ void print_escape() {
             i += 4;
           }
           else
-            goto default_;
+            goto _default;
           break;
         case 'U':
           if (
@@ -138,7 +119,7 @@ void print_escape() {
             i += 8;
           }
           else
-            goto default_;
+            goto _default;
           break;
         // foreground
         case 'c':
@@ -154,9 +135,10 @@ void print_escape() {
               + "m";
             i += 2;
             color = 0;
+            goto _skip_delay;
           }
           else
-            goto default_;
+            goto _default;
           break;
         // attribute/decoration
         case 'd':
@@ -182,19 +164,27 @@ void print_escape() {
                 break;
             }
             i++;
+            goto _skip_delay;
           }
           else
-            goto default_;
+            goto _default;
           break;
         default:
         // label for printing escape sequences literally if not valid
-        default_:
-          *out << '\\' << msg[i+1];
+        _default:
+          *out << '\\';
+          out->flush();
+          if (delay)
+            wait(delay, delay_unit);
+          *out << msg[i+1];
           out->flush();
           if (delay)
             wait(delay, delay_unit);
       }
-      i++;
+      if (delay)
+        wait(delay, delay_unit);
+      _skip_delay:
+        i++;
     }
     else {
       *out << msg[i];
