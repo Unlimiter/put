@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Create a report about unexpected behavior
-title: "[SHORT DESCRIPTION ABOUT THE BUG]"
+title: A brief description about the bug
 labels: bug
 assignees: Unlimiter
 
