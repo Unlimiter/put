@@ -1,5 +1,5 @@
 /*
- * Functions used to display useful information
+ * Functions used to display useful information.
  */
 
 void print_units() {
@@ -57,7 +57,7 @@ void print_help() {
     "    ns   nanoseconds         1e+9s\n"
     "\n"
     "  Colors (on 256-color terminals only):\n"
-    "    Ranging from 0x00 to 0xff.\n"
+    "    Ranging from 00 to ff.\n"
     "\n"
     "  Text Attributes:\n"
     "    0  no attribute\n"
