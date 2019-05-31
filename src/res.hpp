@@ -4,6 +4,7 @@
 
 // sleep
 void wait(ldouble value, byte unit) {
+  out->flush();
   switch (unit) {
     case units::YEARS:
       std::this_thread::sleep_for(std::chrono::duration<ldouble, std::ratio<31536000, 1>>(value));
