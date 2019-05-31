@@ -1,3 +1,6 @@
+v2.0.7-a.0
+  - fixed bug: program not waiting after printing generated character by some escape sequences if delay is set
+
 v2.0.6-a.0
   - added support for "\uHHHH" and "\UHHHHHHHH" escape sequences
 
@@ -12,7 +15,7 @@ v2.0.5-a.2
   - fixed typographical error in "put.1": "corresponing"
 
 v2.0.5-a.1
-  - updated creator's email in 'put.1' from "hichamlabidi50@gmail.com" to "unlimiter@zoho.com"
+  - updated creator's email in 'put.1' to "unlimiter@zoho.com"
 
 v2.0.5-a.0
   - fixed Makefile, expanded manpage
