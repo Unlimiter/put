@@ -30,7 +30,7 @@ You can help by:
 
 ## Chat
 
-IRC: Join **##put** on Freenode.
+**IRC**: Join ##put on Freenode.
 
 ## Getting help
 If you experience any problem with this repository, please open an issue.
