@@ -28,6 +28,10 @@ You can help by:
   - opening an issue
   - whatever you can do
 
+## Chat
+
+IRC: Join **##put** on Freenode.
+
 ## Getting help
 If you experience any problem with this repository, please open an issue.
 
