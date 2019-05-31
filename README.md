@@ -20,6 +20,14 @@ And to open the manpage for Put, first you need to `sudo make install`, then you
 
 For a complete usage reference, see the file `USAGE.txt` or run `put -h`.
 
+## Contributing
+
+You can help by:
+  - improving code
+  - keeping files updated
+  - opening an issue
+  - whatever you can do
+
 ## Getting help
 If you experience any problem with this repository, please open an issue.
 
