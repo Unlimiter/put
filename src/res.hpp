@@ -1,5 +1,5 @@
 /*
- * Other functions used throughout the program
+ * Other functions used throughout the program.
  */
 
 // sleep
