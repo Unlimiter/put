@@ -1,5 +1,5 @@
 /*
- * Functions for writing to the standard output/error
+ * Functions for writing to the standard output/error.
  */
 
 void print() {
