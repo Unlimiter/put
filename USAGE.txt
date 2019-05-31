@@ -23,6 +23,7 @@ usage: put [OPTION] [ARG...]
     \\           backslash              5C
     \'           single quotation mark  27
     \"           double quotation mark  22
+    \xHH         the ASCII character with hexadecimal value HH
     \cHH         start using foreground color with hexadecimal value HH
     \CHH         start using background color with hexadecimal value HH
     \dN          start using text attribute N (0-5)
