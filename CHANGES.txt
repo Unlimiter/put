@@ -1,3 +1,6 @@
+v2.0.5-a.2
+  - fixed typographical error in "put.1": "corresponing"
+
 v2.0.5-a.1
   - updated creator's email in 'put.1' from "hichamlabidi50@gmail.com" to "unlimiter@zoho.com"
 
