@@ -29,10 +29,10 @@ For a complete usage reference, see the file `USAGE.txt` or run `put -h`.
 ## Contributing
 
 You can help by:
-  - improving code
-  - keeping files updated
-  - opening an issue
-  - whatever you can do
+- improving code
+- keeping files updated
+- opening an issue
+- whatever you can do
 
 ## Chat
 
