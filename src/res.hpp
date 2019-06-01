@@ -71,40 +71,40 @@ void get_unicode_char(unsigned code, char chars[5]) {
   }
   else if (code <= 0x7ff) {
     // one continuation byte
+    chars[0] = 0xc0 | (code & 0x1f);
     chars[1] = 0x80 | (code & 0x3f);
     code = (code >> 6);
-    chars[0] = 0xc0 | (code & 0x1f);
     chars[2] = 0;
     chars[3] = 0;
     chars[4] = 0;
   }
   else if (code <= 0xFFFF) {
     // two continuation bytes
-    chars[2] = 0x80 | (code & 0x3f);
-    code = (code >> 6);
+    chars[0] = 0xe0 | (code & 0xf);
     chars[1] = 0x80 | (code & 0x3f);
     code = (code >> 6);
-    chars[0] = 0xe0 | (code & 0xf);
+    chars[2] = 0x80 | (code & 0x3f);
+    code = (code >> 6);
     chars[3] = 0;
     chars[4] = 0;
   }
   else if (code <= 0x10ffff) {
     // three continuation bytes
-    chars[3] = 0x80 | (code & 0x3f);
+    chars[0] = 0xf0 | (code & 0x7);
+    chars[1] = 0x80 | (code & 0x3f);
     code = (code >> 6);
     chars[2] = 0x80 | (code & 0x3f);
     code = (code >> 6);
-    chars[1] = 0x80 | (code & 0x3f);
+    chars[3] = 0x80 | (code & 0x3f);
     code = (code >> 6);
-    chars[0] = 0xf0 | (code & 0x7);
     chars[4] = 0;
   }
   else {
     // unicode replacement character
-    chars[2] = 0xef; chars[1] = 0xbf;
     chars[0] = 0xbd;
+    chars[1] = 0xbf;
+    chars[2] = 0xef;
     chars[3] = 0;
     chars[4] = 0;
-    chars[5] = 0;
   }
 }
