@@ -1,5 +1,7 @@
 # Put
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cb82be2b4aa54fa59cf65e7a14c92909)](https://app.codacy.com/app/unlimiter/put?utm_source=github.com&utm_medium=referral&utm_content=Unlimiter/put&utm_campaign=Badge_Grade_Dashboard)
+
 ![Put logo](logo.png)
 
 A modern "echo".
