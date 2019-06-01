@@ -4,7 +4,7 @@
 
 ![Put logo](logo.png)
 
-A pretty "echo".
+A pretty text printer.
 
 ## Description
 
