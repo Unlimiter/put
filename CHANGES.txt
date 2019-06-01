@@ -1,3 +1,7 @@
+v2.0.13-a.0
+  - added code quality badge to "README.md"
+  - added demo to "README.md"
+
 v2.0.12-a.0
   - updated logo
 
