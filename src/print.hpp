@@ -179,7 +179,7 @@ void print_escape() {
           *out << msg[i+1];
           out->flush();
       }
-      if (delay)
+      if (delay && msg[i+2] != 0)
         wait(delay, delay_unit);
       _skip_delay:
         i++;
@@ -187,7 +187,7 @@ void print_escape() {
     else {
       *out << msg[i];
       out->flush();
-      if (delay)
+      if (delay && msg[i+1] != 0)
         wait(delay, delay_unit);
     }
   }
