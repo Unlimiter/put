@@ -38,7 +38,8 @@ You can help by:
 - improving code
 - keeping files updated
 - opening an issue
-- whatever you can do
+
+Any kind of help is appreciated.
 
 ## Chat
 
