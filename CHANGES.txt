@@ -1,3 +1,6 @@
+v2.0.11-a.0
+  - removed delay after printing the last character
+
 v2.0.10-a.1
   - removed double delay after invalid escape sequence
 
