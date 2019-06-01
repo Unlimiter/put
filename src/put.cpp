@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
         exit(0);
         break;
       case 'v':
-        std::cout << "put v2.0.8-a.0\nCopyright (c) 2019 Unlimiter\n";
+        std::cout << "put v2.0.9-a.0\nCopyright (c) 2019 Unlimiter\n";
         exit(0);
         break;
       case 'd':
