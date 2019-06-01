@@ -1,5 +1,11 @@
 # Put
 
+![Put logo](logo.png)
+
+A modern "echo".
+
+# Description
+
 Put is a tool written in C++ for writing text to the standard output in a stylish way.
 
 ## Installation
