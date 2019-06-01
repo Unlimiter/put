@@ -4,7 +4,7 @@
 
 ![Put logo](logo.png)
 
-A modern "echo".
+A pretty "echo".
 
 ## Description
 
