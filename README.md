@@ -26,6 +26,10 @@ And to open the manpage for Put, first you need to `sudo make install`, then you
 
 `put [-Eehnv] [-d <time>] [-t <time>] [<argument>...]`
 
+### Example
+
+![GIF demo](demo.gif)
+
 For a complete usage reference, see the file `USAGE.txt` or run `put -h`.
 
 ## Contributing
