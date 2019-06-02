@@ -51,4 +51,4 @@ If you experience any problem with this repository, please open an issue.
 If the problem is related to git, please check [here](https://git-scm.com/community).
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT License](https://choosealicense.com/licenses/mit/)
