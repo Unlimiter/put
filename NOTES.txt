@@ -4,3 +4,6 @@
 
 [31-05-2019]
 * I will not support the "\0NNN" escape sequence in the future, because it's useless in my opinion.
+
+[02-06-2019]
+The "Unique Features" wiki page is added. Go check it out!
