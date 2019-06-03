@@ -30,7 +30,7 @@ And to open the manpage for Put, first you need to `sudo make install`, then you
 
 ![GIF demo](demo.gif)
 
-For a complete usage reference, see the file `USAGE.txt` or run `put -h`. For a quick refrence, see [the wiki](https://github.com/Unlimiter/put/wiki).
+For a complete usage reference, see the file `USAGE.txt` or run `put -h`. For a quick reference, see [the wiki](https://github.com/Unlimiter/put/wiki).
 
 ## Contributing
 
